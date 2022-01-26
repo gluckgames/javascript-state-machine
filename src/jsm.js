@@ -142,6 +142,7 @@ mixin(JSM.prototype, {
         pluggable = events[0][2];
 
     args[0].event = event;
+    args[0].previousResult = previousResult;
     if (event && pluggable && event !== previousEvent)
       plugin.hook(this, 'lifecycle', args);
 
@@ -160,7 +161,7 @@ mixin(JSM.prototype, {
         return this.endTransit(false);
       }
       else {
-        return this.observeEvents(events, args, event, result);
+        return this.observeEvents(events, args, event, result || previousResult);
       }
     }
   },
